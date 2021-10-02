@@ -107,6 +107,7 @@ class Comment(models.Model):
         res += self.created.strftime('%b %d, %Y, %H:%M')
         return res
 
+
 class Follow(models.Model):
     user = models.ForeignKey(
         User,
