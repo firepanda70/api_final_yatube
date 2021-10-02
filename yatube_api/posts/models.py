@@ -108,14 +108,14 @@ class Comment(models.Model):
         return res
 
 class Follow(models.Model):
-    origin = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         verbose_name='Подписчик',
         on_delete=models.CASCADE,
         related_name='follower',
-        help_text='Подписчик пользователя'
+        help_text='Подписчик автора'
     )
-    target = models.ForeignKey(
+    following = models.ForeignKey(
         User,
         verbose_name='Автор',
         on_delete=models.CASCADE,
@@ -124,11 +124,11 @@ class Follow(models.Model):
     )
 
     class Meta():
-        ordering = ('target', )
+        ordering = ('following', )
         verbose_name = 'Подписческа'
-        unique_together = ('origin', 'target',)
+        unique_together = ('user', 'following',)
 
     def __str__(self):
-        return (f'Подписка {self.origin.get_full_name()} '
-                f'({self.origin.username}) на {self.target.get_full_name()} '
-                f'({self.target.username})')
+        return (f'Подписка {self.user.get_full_name()} '
+                f'({self.user.username}) на {self.following.get_full_name()} '
+                f'({self.following.username})')
