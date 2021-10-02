@@ -1,5 +1,5 @@
-from rest_framework import serializers, status
-from rest_framework.exceptions import APIException
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from posts.models import Comment, Follow, Group, Post, User
 
@@ -46,11 +46,10 @@ class FollowSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         following = validated_data['following']
         if user == following:
-            raise APIException(code=status.HTTP_400_BAD_REQUEST,
-                               detail='Нельзя подписаться на самого себя')
+            raise ValidationError(detail='Нельзя подписаться на самого себя')
             # Ошибки поднимаются неправильно, в Postman указан код 500,
             # нужна подсказка
         if len(Follow.objects.filter(user=user, following=following)) != 0:
-            raise APIException(code=status.HTTP_400_BAD_REQUEST,
-                               detail='Вы уже подписаны')
+            raise ValidationError(code=400,
+                                  detail='Вы уже подписаны')
         return Follow.objects.create(user=user, following=following)
