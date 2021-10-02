@@ -50,9 +50,9 @@ class FollowSerializer(serializers.ModelSerializer):
         if user == following:
             raise APIException(code=status.HTTP_400_BAD_REQUEST,
                                detail='Нельзя подписаться на самого себя')
+            # Ошибки поднимаются неправильно, в Postman указан код 500, нужна подсказка
         if len(Follow.objects.filter(user=user, following=following)) != 0:
             raise APIException(code=status.HTTP_400_BAD_REQUEST,
                                detail='Вы уже подписаны')
-        print('HERE')
         return Follow.objects.create(user=user, following=following)
 
