@@ -11,7 +11,6 @@ from .serializers import (CommentSerializer, FollowSerializer,
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    pagination_class = None
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -34,7 +33,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    pagination_class = None
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
@@ -61,7 +59,6 @@ class FollowViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated, )
-    pagination_class = None
     filter_backends = (filters.SearchFilter, )
     search_fields = ('following__username',)
 
