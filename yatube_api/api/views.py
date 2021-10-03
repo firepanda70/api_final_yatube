@@ -1,7 +1,5 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, permissions, filters
-from rest_framework.exceptions import PermissionDenied
-
 from posts.models import Follow, Group, Post
 
 from .permissions import AuthorOrReadOnly
@@ -36,6 +34,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         post_id = self.kwargs.get('post_id')
         new_queryset = get_object_or_404(Post, id=post_id).comments
         return new_queryset
+
 
 class FollowViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,
                     viewsets.GenericViewSet):
