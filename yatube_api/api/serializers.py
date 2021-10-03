@@ -47,9 +47,7 @@ class FollowSerializer(serializers.ModelSerializer):
         following = validated_data['following']
         if user == following:
             raise ValidationError(detail='Нельзя подписаться на самого себя')
-            # Ошибки поднимаются неправильно, в Postman указан код 500,
-            # нужна подсказка
+            # Отбой, тут все нормально было :)
         if len(Follow.objects.filter(user=user, following=following)) != 0:
-            raise ValidationError(code=400,
-                                  detail='Вы уже подписаны')
+            raise ValidationError(code=400, detail='Вы уже подписаны')
         return Follow.objects.create(user=user, following=following)
