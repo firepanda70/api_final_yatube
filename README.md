@@ -1,8 +1,10 @@
-# Описание
+# REST API для проекта Yatube
+
+### Описание
 
 API для взаимодействия с платформой [Yatube](https://github.com/firepanda70/yatube_project)
 
-# Установка
+### Установка
 
 - Клонировать репозиторий и перейти в него в командной строке:
 
@@ -36,3 +38,10 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+### Технологии:
+- Python 3
+- Django
+- Django REST Framework
+- SQLite3
+- Simple-JWT
