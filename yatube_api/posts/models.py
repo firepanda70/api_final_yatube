@@ -17,9 +17,11 @@ class Group(models.Model):
 
     class Meta:
         verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Post(models.Model):
@@ -56,6 +58,8 @@ class Post(models.Model):
     class Meta:
         ordering = ('-pub_date', )
         verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
+
 
     def __str__(self):
         fullname = self.author.get_full_name()
@@ -98,6 +102,8 @@ class Comment(models.Model):
     class Meta():
         ordering = ('created', )
         verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
 
     def __str__(self):
         fullname = self.author.get_full_name()
@@ -127,6 +133,7 @@ class Follow(models.Model):
     class Meta():
         ordering = ('following', )
         verbose_name = 'Подписческа'
+        verbose_name_plural = 'Подписчески'
         unique_together = ('user', 'following',)
 
     def __str__(self):
